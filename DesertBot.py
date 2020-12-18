@@ -43,8 +43,14 @@ def region_of_interest(image):
            (x_bottom_left, y_top)
 
 
-def create_coordinates(image, line_parameters):
-    slope, intercept = line_parameters
+def create_coordinates(image, lane_params):
+    """
+    Creates the lane's start and end coordinates in the given image
+    :param image: Image where the lane has been detected in.
+    :param lane_params: Lane's 1st order polynomial parameters.
+    :return: Start and end coordinates of the lane in the image.
+    """
+    slope, intercept = lane_params
 
     y1 = int(image.shape[0] * 0.30)
     y2 = int(image.shape[0] * 0.65)
@@ -55,6 +61,11 @@ def create_coordinates(image, line_parameters):
 
 
 def detect_lane(image):
+    """
+    Detects a lane in the given image.
+    :param image: Image where a lane should be detected in.
+    :return: Start and end coordinates of the detected lane on success, None if no lane has been detected.
+    """
     roi_image, roi_offset = region_of_interest(image)
     edge_image = detect_edges(roi_image)
 
@@ -114,6 +125,9 @@ def display_lane(image, lane):
 
 
 def main():
+    """
+    Main function.
+    """
     print("OpenCV version:" + cv2.getVersionString())
 
     cap = cv2.VideoCapture('examples/desertbus_screencapture.mov')
