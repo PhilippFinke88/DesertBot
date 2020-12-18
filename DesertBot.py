@@ -66,24 +66,19 @@ def detect_lane(image):
                     line_fit.append((parameters[0], parameters[1]))
                 except np.RankWarning:
                     print('Failed to polyfit line data!')
-                    return None
                 except:
-                    print('Unknown error in lane detection!')
-                    return None
+                    print('Unknown error while polyfitting line!')
 
             try:
                 # Compute average of all detected polynomials to get lane.
-                line_fit_average = np.average(line_fit, axis=0)
-                return np.array([create_coordinates(image, line_fit_average)])
+                line_fit_mean = np.mean(line_fit, axis=0)
+                lane = np.array([create_coordinates(image, line_fit_mean)])
             except RuntimeWarning:
                 print('Not enough data to compute lane!')
-                return None
             except:
                 print('Unknown error in lane detection!')
-                return None
-    else:
-        print('No lines detected!')
-        return None
+
+    return lane, lines
 
 
 def display_lane(image, lane):
