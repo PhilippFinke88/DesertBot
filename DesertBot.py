@@ -41,7 +41,15 @@ def detect_lane(image):
     roi_image = region_of_interest(image)
     edge_image = detect_edges(roi_image)
 
-    lines = cv2.HoughLinesP(edge_image, 1, np.pi / 180.0, 30, minLineLength=100, maxLineGap=200)
+    height = image.shape[0]
+
+    lane = None
+    lines = cv2.HoughLinesP(edge_image,
+                            1,
+                            np.pi / 180.0,
+                            30,
+                            minLineLength=int(height * 0.06),
+                            maxLineGap=int(height * 0.1))
 
     if lines is not None:
         line_fit = []
