@@ -4,6 +4,11 @@ import numpy as np
 
 
 def detect_edges(image):
+    """
+    Detects the edges of the lane in the given image.
+    :param image: Image to detect lane edges in.
+    :return: Greyscale image with detected lane edges.
+    """
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     filtered_image = cv2.blur(gray_image, (19, 19))
     _, binary_image = cv2.threshold(filtered_image, 150, 255, cv2.THRESH_BINARY)
@@ -11,19 +16,31 @@ def detect_edges(image):
     return cv2.Canny(binary_image, 200, 205)
 
 
-# Filters the region of interest. In this case the yellow road marks.
 def region_of_interest(image):
+    """
+    Creates a subimage of the given image with the region of interest (ROI).
+    :param image: Image to extract ROI from.
+    :return: 1. ROI subimage, 2. Origin of subimage relative to image.
+    """
     height = image.shape[0]
     width = image.shape[1]
-    roi_vertices = np.array([[(int(width * 0.17), int(height * 0.58)),
-                              (int(width * 0.43), int(height * 0.58)),
-                              (int(width * 0.43), int(height * 0.39)),
-                              (int(width * 0.31), int(height * 0.39))]])
+
+    y_bottom = int(height * 0.58)
+    y_top = int(height * 0.39)
+    x_bottom_left = int(width * 0.17)
+    x_bottom_right = int(width * 0.43)
+    x_top_left = int(width * 0.31)
+
+    roi_vertices = np.array([[(x_bottom_left, y_bottom),
+                              (x_bottom_right, y_bottom),
+                              (x_bottom_right, y_top),
+                              (x_top_left, y_top)]])
 
     mask = np.zeros((height, width), np.uint8)
     cv2.fillPoly(mask, roi_vertices, 255)
 
-    return cv2.bitwise_and(image, image, mask=mask)
+    return cv2.bitwise_and(image, image, mask=mask)[y_top:y_bottom, x_bottom_left:x_bottom_right], \
+           (x_bottom_left, y_top)
 
 
 def create_coordinates(image, line_parameters):
@@ -38,7 +55,7 @@ def create_coordinates(image, line_parameters):
 
 
 def detect_lane(image):
-    roi_image = region_of_interest(image)
+    roi_image, roi_offset = region_of_interest(image)
     edge_image = detect_edges(roi_image)
 
     height = image.shape[0]
@@ -60,6 +77,11 @@ def detect_lane(image):
             for line in lines:
                 x1, y1, x2, y2 = line.reshape(4)
 
+                x1 += roi_offset[0]
+                x2 += roi_offset[0]
+                y1 += roi_offset[1]
+                y2 += roi_offset[1]
+
                 try:
                     # It will fit the polynomial and the intercept and slope
                     parameters = np.polyfit((x1, x2), (y1, y2), 1)
@@ -78,7 +100,7 @@ def detect_lane(image):
             except:
                 print('Unknown error in lane detection!')
 
-    return lane, lines
+    return lane
 
 
 def display_lane(image, lane):
