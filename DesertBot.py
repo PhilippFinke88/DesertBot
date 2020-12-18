@@ -114,16 +114,6 @@ def detect_lane(image):
     return lane
 
 
-def display_lane(image, lane):
-    line_image = np.zeros_like(image)
-
-    if lane is not None:
-        for x1, y1, x2, y2 in lane:
-            cv2.line(line_image, (x1, y1), (x2, y2), (255, 0, 0), 10)
-
-    return line_image
-
-
 def main():
     """
     Main function.
@@ -141,7 +131,10 @@ def main():
             lane = detect_lane(frame)
 
             if lane is not None:
-                frame = cv2.addWeighted(frame, 0.8, display_lane(frame, lane), 1, 1)
+                for x1, y1, x2, y2 in lane:
+                    cv2.line(frame, (x1, y1), (x2, y2), (255, 0, 0), 10)
+            else:
+                print('No lane detected!')
 
             out.write(frame)
         else:
