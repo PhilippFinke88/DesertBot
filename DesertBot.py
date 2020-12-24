@@ -1,6 +1,9 @@
 import warnings
 import cv2
 import numpy as np
+import pyautogui
+import keyboard
+import time
 
 
 def detect_edges(image):
@@ -119,33 +122,36 @@ def main():
     Main function.
     """
     print("OpenCV version:" + cv2.getVersionString())
+    print("Waiting for input of driver...")
 
-    cap = cv2.VideoCapture('examples/desertbus_screencapture.mov')
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter('desertbus_lane.mp4', fourcc, 60.0, (2880, 1800))
+    keyboard.wait('a', True)
 
-    while cap.isOpened():
-        frame_ok, frame = cap.read()
+    print("Desertbot started, enjoy the ride!")
 
-        if frame_ok:
-            lane = detect_lane(frame)
+    video_writer = cv2.VideoWriter(filename="lane_misses.avi",
+                                   fourcc=cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
+                                   fps=5,
+                                   frameSize=(1920, 1080))
 
-            if lane is not None:
-                for x1, y1, x2, y2 in lane:
-                    cv2.line(frame, (x1, y1), (x2, y2), (255, 0, 0), 10)
-            else:
-                print('No lane detected!')
+    while not keyboard.is_pressed('q'):
+        frame = pyautogui.screenshot()
+        frame = cv2.cvtColor(np.array(frame), cv2.COLOR_RGB2BGR)
 
-            out.write(frame)
+        lane = detect_lane(frame)
+
+        if lane is not None:
+            pyautogui.keyDown('a')
+
+            for x1, y1, x2, y2 in lane:
+                if min([x1, x2]) <= int(frame.shape[1] * 0.31):
+                    pyautogui.keyDown('j')
+                    time.sleep(0.05)
+                    pyautogui.keyUp('j')
         else:
-            print('End of video!')
-            break
+            print('No lane detected!')
+            video_writer.write(frame)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    out.release()
+    video_writer.release()
     cv2.destroyAllWindows()
 
 
