@@ -126,7 +126,7 @@ def main():
 
     keyboard.wait('a', True)
 
-    print("Desertbot started, enjoy the ride!")
+    print("Desert Bot started, enjoy the ride!")
 
     video_writer = cv2.VideoWriter(filename="lane_misses.avi",
                                    fourcc=cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
