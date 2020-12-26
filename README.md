@@ -30,5 +30,5 @@ I came up with the idea for this project after watching the episode of the *Angr
 1. Enjoy the ride!
 
 ## Known issues
-- The .cue files of the *Penn & Teller's Smoke and Mirrors* CD images might be edited as the paths to the corresponding .bin files are wrong. Open each .cue file and check if the path in first line points to the corresponding .bin file in the same folder.
+- The .cue files of the *Penn & Teller's Smoke and Mirrors* CD images must be edited if the paths to the corresponding .bin files are wrong. Open each .cue file and check if the path in the first line points to the corresponding .bin file in the same folder.
 - For some reason it is not possible to send virtual key strokes for the left arrow key in Python (at least under Windows). For this reason the left arrow key must be mapped to **J** in *Kega Fusion*.
