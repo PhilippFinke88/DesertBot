@@ -140,13 +140,13 @@ def main():
         lane = detect_lane(frame)
 
         if lane is not None:
-            pyautogui.keyDown('a')
+            keyboard.press('a')
 
             for x1, y1, x2, y2 in lane:
                 if min([x1, x2]) <= int(frame.shape[1] * 0.31):
-                    pyautogui.keyDown('j')
+                    keyboard.press('j')
                     time.sleep(0.05)
-                    pyautogui.keyUp('j')
+                    keyboard.release('j')
         else:
             print('No lane detected!')
             video_writer.write(frame)
