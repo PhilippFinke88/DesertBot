@@ -19,7 +19,7 @@ I came up with the idea for this project after watching the episode of the *Angr
 
 `pip install opencv-python numpy keyboard pyautogui`
 
-**NOTE:** You can also install the packages in a virtual environment which is best practise anyway (see [https://docs.python.org/3/tutorial/venv.html](https://docs.python.org/3/tutorial/venv.html "https://docs.python.org/3/tutorial/venv.html")).
+**NOTE:** You can also install the packages in a virtual environment which is best practice anyway (see [https://docs.python.org/3/tutorial/venv.html](https://docs.python.org/3/tutorial/venv.html "https://docs.python.org/3/tutorial/venv.html")).
 
 ## Usage
 1. Start *Desert Bot* with `python3 DesertBot.py`.
