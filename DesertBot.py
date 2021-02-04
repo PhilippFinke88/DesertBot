@@ -128,11 +128,6 @@ def main():
 
     print("Desert Bot started, enjoy the ride!")
 
-    video_writer = cv2.VideoWriter(filename="lane_misses.avi",
-                                   fourcc=cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
-                                   fps=5,
-                                   frameSize=(1920, 1080))
-
     while not keyboard.is_pressed('q'):
         frame = pyautogui.screenshot()
         frame = cv2.cvtColor(np.array(frame), cv2.COLOR_RGB2BGR)
@@ -149,9 +144,7 @@ def main():
                     keyboard.release('j')
         else:
             print('No lane detected!')
-            video_writer.write(frame)
 
-    video_writer.release()
     cv2.destroyAllWindows()
 
 
