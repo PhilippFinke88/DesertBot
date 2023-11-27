@@ -23,7 +23,7 @@ I came up with the idea for this project after watching the episode of the *Angr
 
 ## Usage
 1. Start *Desert Bot* with `python3 DesertBot.py`.
-1. Load *Penn & Teller's Smoke and Mirrors Disc 1* ROM in *Kega Fusion* (the ROMs can be found [here](https://hiddenpalace.org/Penn_%26_Teller%27s_Smoke_and_Mirrors_(Apr_30,_1995_prototype)).
+1. Load *Penn & Teller's Smoke and Mirrors Disc 1* ROM in *Kega Fusion* (the ROMs can be found [here](https://hiddenpalace.org/Penn_%26_Teller%27s_Smoke_and_Mirrors_(Apr_30,_1995_prototype))).
 1. Switch to fullscreen by pressing **Esc** on your keyboard.
 1. Start Desert Bus in the game.
 1. Press **A** on your keyboard to start the autopilot.
