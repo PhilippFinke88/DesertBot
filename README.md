@@ -11,7 +11,7 @@ I came up with the idea for this project after watching the episode of the *Angr
 1. Follow the instructions on [https://www.fantasyanime.com/emuhelp/kegafusion](https://www.fantasyanime.com/emuhelp/kegafusion "https://www.fantasyanime.com/emuhelp/kegafusion") to install *Kega Fusion* and to set up the Sega CD BIOS files.
 1. Set the resolution to 1920x1080 under **Video > Full Screen Resolution** (another resolution might work too, but I haven't tested this yet).
 1. Uncheck **Video > Filtered** as image filtering will be done by *Desert Bot*.
-1. Under **Options > Set Config > Controllers** redefine the the controller so that **LEFT** is **J** and the **A button** is **A** on your keyboard.
+1. Under **Options > Set Config > Controllers** redefine the controller so that **LEFT** is **J** and the **A button** is **A** on your keyboard.
 
 ### Desert Bot
 1. Download or clone this project.
