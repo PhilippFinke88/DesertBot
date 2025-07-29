@@ -1,5 +1,6 @@
 """
-A totally overengineered autopilot for the minigame Desert Bus from the game compilation Penn & Teller's Smoke and Mirrors for the Sega CD.
+A totally overengineered autopilot for the minigame Desert Bus from the game 
+compilation Penn & Teller's Smoke and Mirrors for the Sega CD.
 
 Copyright (c) 2020-2025, Philipp Finke
 """
